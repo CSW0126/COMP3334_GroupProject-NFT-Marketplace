@@ -1,19 +1,37 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
+import { constants as ethersConstants, Contract } from "ethers";
 import { ethers } from "hardhat";
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("NFTMarket", () => {
+  let nftMarket: Contract;
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+  before(async () => {
+    //deploy the NFTMarket contract
+    const NFTMarket = await ethers.getContractFactory("NFTMarket");
+    nftMarket = await NFTMarket.deploy()
+    await nftMarket.deployed();
+  });
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+  //test CreateNFT
+  describe("CreateNFT", () => {
+    it("should deploy the contract", async () => {
+      //call createNFT function
+      const tokenURI = 'https://some.url/nft/1';
+      const transaction =  await nftMarket.createNFT(tokenURI);
+      const receipt = await transaction.wait();
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+      //assert that the new NFT uri is the same as the one we passed to the function
+      const tokenID = receipt.events[0].args.tokenId;
+      const mintedTokenURI = await nftMarket.tokenURI(tokenID);
+      expect(mintedTokenURI).to.equal(tokenURI);
+      //console.log(tokenID);
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+      //assert that the new NFT owner address is equal to the transaction creator
+      const ownerAddress = await nftMarket.ownerOf(tokenID);
+      const signers = await ethers.getSigners();
+      const currentAddress = await signers[0].getAddress();
+      expect(ownerAddress).to.equal(currentAddress);
+    });
   });
 });
