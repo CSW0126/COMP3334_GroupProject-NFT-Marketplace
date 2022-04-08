@@ -10,16 +10,16 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(403).json({ error: `Unsupported method ${req.method}` });
   }
   try {
-    // Parse req body and save image in /tmp
+    // Parse req body and save image in /images
     const data: any = await new Promise((res, rej) => {
-      const uploadDir = `${process.cwd()}/tmp`;
+      const uploadDir = `${process.cwd()}/images`;
       const form = formidable({ multiples: true, uploadDir });
       form.parse(req, (err, fields, files) => {
         if (err) rej(err);
         res({ ...fields, ...files });
       });
     });
-    // Read image from /tmp
+    // Read image from /images
     const {
       filepath,
       originalFilename = "image",
@@ -27,16 +27,16 @@ const handler: NextApiHandler = async (req, res) => {
     } = data.image;
     const buffer = readFileSync(data.image.filepath);
     const arraybuffer = Uint8Array.from(buffer).buffer;
-    const blob = new File([arraybuffer], originalFilename, {
+    const file = new File([arraybuffer], originalFilename, {
       type: mimetype,
     });
     // Upload data to nft.storage
     const metadata = await client.store({
       name: data.name,
       description: data.description,
-      image: blob,
+      image: file,
     });
-    // Delete tmp image
+    // Delete image in folder images
     unlinkSync(filepath);
     // return tokenURI
     res.status(201).json({ uri: metadata.url });
