@@ -1,7 +1,9 @@
 import classNames from "classnames";
 import { BigNumber } from "ethers";
 import { useEffect, useState } from "react";
+import useNFTMarket from "state/nft-market";
 import { NFT } from "state/nft-market/interfaces";
+import useSigner from "state/signer";
 import { ipfsToHTTPS } from "../helpers";
 import AddressAvatar from "./AddressAvatar";
 import SellPopup from "./SellPopup";
@@ -19,10 +21,12 @@ type NFTCardProps = {
 
 const NFTCard = (props: NFTCardProps) => {
   const { nft, className } = props;
-  const address = "";
+  const {address} = useSigner();
+  const {listNFT, cancelListing, buyNFT} = useNFTMarket();
   const [meta, setMeta] = useState<NFTMetadata>();
   const [loading, setLoading] = useState(false);
   const [sellPopupOpen, setSellPopupOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchMetadata = async () => {
@@ -53,15 +57,36 @@ const NFTCard = (props: NFTCardProps) => {
   };
 
   const onBuyClicked = async () => {
-    // TODO: buy NFT
+    setLoading(true);
+    try{
+    await buyNFT(nft);
+    }catch(e){
+      console.log(e);
+    }
+    setLoading(false);
   };
 
   const onCancelClicked = async () => {
-    // TODO: cancel listing
+    setLoading(true);
+    try{
+    await cancelListing(nft.id);
+    }catch(e){
+      console.log(e);
+    }
+    setLoading(false);
+    //window.location.reload();
   };
 
   const onSellConfirmed = async (price: BigNumber) => {
-    // TODO: list NFT
+    setSellPopupOpen(false);
+    setLoading(true);
+    try{
+    await listNFT(nft.id, price);
+    }catch(e){
+      console.log(e);
+    }
+    setLoading(false);
+    //window.location.reload();
   };
 
   const forSale = nft.price != "0";
@@ -103,13 +128,13 @@ const NFTCard = (props: NFTCardProps) => {
             {!forSale && "SELL"}
             {forSale && owned && (
               <>
-                <span className="group-hover:hidden">{nft.price} ETH</span>
+                <span className="group-hover:hidden">{nft.price} MATIC</span>
                 <span className="hidden group-hover:inline">CANCEL</span>
               </>
             )}
             {forSale && !owned && (
               <>
-                <span className="group-hover:hidden">{nft.price} ETH</span>
+                <span className="group-hover:hidden">{nft.price} MATIC</span>
                 <span className="hidden group-hover:inline">BUY</span>
               </>
             )}
