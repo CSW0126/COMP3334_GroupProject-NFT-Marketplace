@@ -173,7 +173,6 @@ describe("NFTMarket", () => {
       const args = receipt.events[2].args;
       expect(args.tokenID).to.equal(tokenID);
       expect(args.from).to.equal(nftMarket.address);
-      expect(args.from).to.equal(nftMarket.address);
       expect(args.to).to.equal(signers[0].address);
       expect(args.tokenURI).to.equal("");
       expect(args.price).to.equal(0);
