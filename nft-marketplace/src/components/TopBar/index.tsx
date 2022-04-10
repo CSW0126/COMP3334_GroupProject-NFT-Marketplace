@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import React from 'react'
 import AddNetworkBtn from "components/AddNetworkBtn";
 import useSigner from "state/signer";
+import ThemeSwitchBtn from "components/ThemeSwitchBtn";
 
 const TopBar = () => {
   const { chainId } = useSigner();
@@ -14,6 +15,7 @@ const TopBar = () => {
         <Link href="/">
           <a className="text-lg font-bold">COMP3334 NFT Marketplace</a>
         </Link>
+        <ThemeSwitchBtn />
         <div className="flex-grow">
           <NavBar />
         </div>

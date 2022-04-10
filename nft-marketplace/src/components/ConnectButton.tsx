@@ -7,7 +7,7 @@ const ConnectButton = () => {
   if (address) return <AddressAvatar address={address} />;
   return (
     <button
-      className="flex h-10 w-36 items-center justify-center rounded-full bg-black px-4 font-semibold text-white"
+      className="flex h-10 w-36 items-center justify-center rounded-full bg-black px-4 font-semibold text-white dark:text-black dark:bg-white"
       onClick={connectWallet}
       disabled={loading}
     >

@@ -32,7 +32,7 @@ const ImagePicker = ({ name, className }: ImagePickerProps) => {
       className={classNames(
         className,
         "group flex h-96 w-72 items-center justify-center rounded-xl border",
-        { "border-black": !error, "border-red-500": error }
+        { "border-black dark:border-white": !error, "border-red-500": error }
       )}
       style={style}
       onClick={() => {

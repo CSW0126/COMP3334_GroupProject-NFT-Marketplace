@@ -14,8 +14,8 @@ const OwnedPage = () => {
       </div>
       {ownedListedNFTs && ownedListedNFTs.length > 0 && (
       <>
-       <div className="relative my-2 h-[1px] w-full flex-shrink-0 bg-black">
-          <div className="absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transform bg-white px-2 font-mono font-semibold">
+       <div className="relative my-2 h-[1px] w-full flex-shrink-0 bg-black dark:bg-white">
+          <div className="absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transform bg-white px-2 font-mono font-semibold dark:text-black">
              LISTED
            </div>
         </div>

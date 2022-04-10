@@ -33,7 +33,7 @@ const NavBarItem = (props: NavbarItemProps) => {
     <Link href={href}>
       <a
         className={classNames("rounded-lg px-4 py-2 font-semibold", {
-          "bg-black text-white": isActive,
+          "bg-black text-white dark:bg-white dark:text-black": isActive,
         })}
       >
         {children}

@@ -2,13 +2,11 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import type { AppProps } from "next/app";
 import "react-toastify/dist/ReactToastify.css";
 import { SignerProvider } from "state/signer";
-import { string } from "yup";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
-import Script from 'next/script';
-import { useEffect } from "react";
 import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
+import { ThemeProvider } from 'next-themes';
+import 'tailwindcss/tailwind.css';
 
 
 const GRAPH_URL = process.env.NEXT_PUBLIC_GRAPH_URL as string;
@@ -27,19 +25,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <SignerProvider>
         <ApolloProvider client={client}>
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{
-              /** Put your mantine theme override here */
-              colorScheme: 'dark',
-            }}
-          >
+          <ThemeProvider attribute="class">
             <Layout>
               <Component {...pageProps} />
             </Layout>
-          </MantineProvider>
-
+          </ThemeProvider>
         </ApolloProvider>
       </SignerProvider>
     </>
