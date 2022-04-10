@@ -7,6 +7,7 @@ type SignerContextType = {
   signer?: JsonRpcSigner;
   address: string;
   balance: string;
+  chainId: number;
   loading: boolean;
   connectWallet: () => Promise<void>;
 }
@@ -19,6 +20,7 @@ export const SignerProvider = ({ children }: { children: ReactNode }) => {
   const [address, setAddress] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState<string>();
+  const [chainId, setChainId] = useState<number>();
 
   const connectWallet = async () => {
     console.log("test connect wallet");
@@ -29,9 +31,13 @@ export const SignerProvider = ({ children }: { children: ReactNode }) => {
       const provider = new Web3Provider(instance);
       const signer = provider.getSigner();
       const address = await signer.getAddress();
+      const chainId = await signer.getChainId();
       const balance = await signer.getBalance();
+  
       setSigner(signer);
       setAddress(address);
+      setChainId(chainId);
+
       let res = ethers.utils.formatEther(balance);
       res = (+res).toFixed(4);
       setBalance(res);
@@ -45,9 +51,10 @@ export const SignerProvider = ({ children }: { children: ReactNode }) => {
     const web3modal = new Web3Modal();
     if (web3modal.cachedProvider) connectWallet();
     window.ethereum.on("accountsChanged", connectWallet);
+    window.ethereum.on("chainChanged", connectWallet);
   }, []);
 
-  const contextValue = { signer, address, balance, loading, connectWallet };
+  const contextValue = { signer, address, balance,chainId, loading, connectWallet };
 
   return (
     <SignerContext.Provider value={contextValue}>
