@@ -6,9 +6,9 @@ import { ReactNode } from "react";
 const NavBar = () => {
   return (
     <nav className="absolute bottom-1/2 right-1/2 flex translate-y-1/2 translate-x-1/2 transform justify-center">
-      <NavBarItem href="/">Home</NavBarItem>
-      <NavBarItem href="/owned">Owned</NavBarItem>
-      <NavBarItem href="/create">Create</NavBarItem>
+      <NavBarItem href="/">Market</NavBarItem>
+      <NavBarItem href="/owned">Owned NFT</NavBarItem>
+      <NavBarItem href="/create">Create NFT</NavBarItem>
     </nav>
   );
 };
