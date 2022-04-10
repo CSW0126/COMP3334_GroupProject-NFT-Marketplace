@@ -52,7 +52,13 @@ const useNFTMarket = () => {
         await transaction.wait();
     };
 
-    return { createNFT, listNFT, cancelListing, buyNFT, ...ownedNFTs, ...ownedListedNFTs, ...listedNFTs, };
+    const withdrawFunds = async () =>{
+        const transaction: TransactionResponse = await nft_market.withdrawFunds();
+        const recipe = await transaction.wait();
+        console.log(recipe)
+    }
+
+    return { createNFT, listNFT, cancelListing, buyNFT,withdrawFunds, ...ownedNFTs, ...ownedListedNFTs, ...listedNFTs, };
 }
 
 export default useNFTMarket;

@@ -14,9 +14,9 @@ const client = new ApolloClient({ cache: new InMemoryCache(), uri: GRAPH_URL });
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useEffect(() => {
-    import('flowbite')
-  }, []);
+  // useEffect(() => {
+  //   import('flowbite')
+  // }, []);
   return (
     <SignerProvider>
       <ApolloProvider client={client}>
