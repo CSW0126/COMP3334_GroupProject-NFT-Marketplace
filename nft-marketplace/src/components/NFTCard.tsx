@@ -14,13 +14,18 @@ type NFTMetadata = {
   imageURL: string;
 };
 
+type error ={
+  code: number;
+}
+
 type NFTCardProps = {
   nft: NFT;
   className?: string;
+  error?: () => void;
 };
 
 const NFTCard = (props: NFTCardProps) => {
-  const { nft, className } = props;
+  const { nft, className,error } = props;
   const {address} = useSigner();
   const {listNFT, cancelListing, buyNFT} = useNFTMarket();
   const [meta, setMeta] = useState<NFTMetadata>();
@@ -59,9 +64,15 @@ const NFTCard = (props: NFTCardProps) => {
   const onBuyClicked = async () => {
     setLoading(true);
     try{
-    await buyNFT(nft);
+      await buyNFT(nft);
     }catch(e){
       console.log(e);
+
+      if(e.code == -32603){
+        if(error) error();
+      }
+      
+
     }
     setLoading(false);
   };
