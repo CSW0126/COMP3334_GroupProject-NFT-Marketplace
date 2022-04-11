@@ -9,7 +9,7 @@ const NavBar = () => {
   const owner = process.env.NEXT_PUBLIC_CONTRACT_OWNER as string;
 
   return (
-    <nav className="absolute bottom-1/2 right-1/2 flex translate-y-1/2 translate-x-1/2 transform justify-center">
+    <nav className="absolute bottom-1/2 flex translate-y-1/2 pl-10 transform justify-center">
       <NavBarItem href="/">Market</NavBarItem>
       <NavBarItem href="/owned">Owned NFT</NavBarItem>
       <NavBarItem href="/create">Create NFT</NavBarItem>

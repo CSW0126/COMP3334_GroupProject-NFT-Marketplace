@@ -15,17 +15,19 @@ const TopBar = () => {
         <Link href="/">
           <a className="text-lg font-bold">COMP3334 NFT Marketplace</a>
         </Link>
-        <ThemeSwitchBtn />
         <div className="flex-grow">
           <NavBar />
         </div>
         <div>
           {
-            chainId == 80001 ? "" : <AddNetworkBtn/>
+            chainId == 80001 ? "" : <AddNetworkBtn />
           }
         </div>
 
         <ConnectButton />
+        <div className="px-5">
+          <ThemeSwitchBtn />
+        </div>
       </div>
     </div>
   );

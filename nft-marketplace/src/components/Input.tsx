@@ -9,8 +9,8 @@ export const Input = (props: InputProps) => {
 
   return (
     <input
-      className={classNames(className, "rounded border px-2 py-2 text-xl", {
-        "border-gray-300": !error,
+      className={classNames(className, "rounded border px-2 py-2 text-xl dark:bg-black dark:text-white", {
+        "border-black dark:border-white": !error,
         "border-red-500": error,
       })}
       {...rest}
