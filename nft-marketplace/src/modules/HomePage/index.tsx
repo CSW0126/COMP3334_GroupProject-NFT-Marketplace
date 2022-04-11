@@ -34,7 +34,8 @@ const HomePage = () => {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="">
+      <div className="flex w-full flex-col">
         {error ? alert() : null}
         <div className="flex flex-wrap">
          {listedNFTs?.map((nft) =>( 
@@ -42,6 +43,8 @@ const HomePage = () => {
         ))}
       </div>
     </div>
+    </div>
+
   );
 };
 

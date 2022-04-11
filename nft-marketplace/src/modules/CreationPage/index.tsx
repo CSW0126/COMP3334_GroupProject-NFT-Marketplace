@@ -12,13 +12,16 @@ const CreationPage = () => {
   };
 
   return (
-    <div
-      className={classNames("flex h-full w-full flex-col", {
-        "items-center justify-center": !signer,
-      })}
-    >
-      {signer ? <CreationForm onSubmit={createNFT} /> : "Connect your wallet"}
+    <div className="m-auto">
+      <div
+        className={classNames("flex h-full w-full flex-col", {
+          "items-center justify-center": !signer,
+        })}
+      >
+        {signer ? <CreationForm onSubmit={createNFT} /> : "Connect your wallet"}
+      </div>
     </div>
+
   );
 };
 
