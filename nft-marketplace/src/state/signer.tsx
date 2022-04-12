@@ -5,10 +5,10 @@ import { ethers } from "ethers";
 
 type SignerContextType = {
   signer?: JsonRpcSigner;
-  address: string;
-  balance: string;
-  chainId: number;
-  loading: boolean;
+  address?: string;
+  balance?: string;
+  chainId?: number;
+  loading?: boolean;
   connectWallet: () => Promise<void>;
 }
 
